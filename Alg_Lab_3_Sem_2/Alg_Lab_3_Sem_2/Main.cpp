@@ -2,7 +2,7 @@
 #include <time.h>
 #include "Hash.h"
 
-constexpr auto MAXINT = 100;
+const int MAXINT = 100;
 const int SIZE = 32;
 
 using namespace std;
