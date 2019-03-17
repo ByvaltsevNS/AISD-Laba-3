@@ -1,4 +1,3 @@
-#include <iostream>
 #include <time.h>
 #include "Hash.h"
 
@@ -7,23 +6,32 @@ const int SIZE = 32;
 
 using namespace std;
 
-int* create_set(const int size = SIZE, const int max_val = MAXINT);//Создание множества заданной мощности
+int* create_set(const int size = SIZE, const int max_val = MAXINT);//The creation of many of the given power
 
 int main() {
 	srand(time(NULL));
 
 	/*const int hash_size = MAXINT * 2;*/
 	int* arr = create_set();
+	vector <int>* hui = new vector <int>;
 	for (auto i = 0; i < SIZE; i++) {
 		arr[i] = rand() % MAXINT;
 	}
 	cin.get();
 	for (auto i = 0; i < SIZE; i++) {
-		cout << arr[i] << " ";
+		cout << "[";
+		cout.width(to_string(MAXINT).size());
+		cout << arr[i];
+		cout.fill(' ');
+		cout << "]";
 	}
 	cout << endl;
 	for (auto i = 0; i < SIZE; i++) {
-		cout << hash_func(arr[i], SIZE) << " ";
+		cout << "[";
+		cout.width(to_string(MAXINT).size());
+		cout << hash_func(arr[i], SIZE);
+		cout.fill(' ');
+		cout << "]";
 	}
 	/*int hash[SIZE * 2];
 	for (auto i = 0; i < SIZE; i++) {
