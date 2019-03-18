@@ -6,14 +6,33 @@ const int SIZE = 32;
 
 using namespace std;
 
-int* create_set(const int size = SIZE, const int max_val = MAXINT);//The creation of many of the given power
+hash_table* create_set(const int size = SIZE, const int max_val = MAXINT);//The creation of many of the given power
+hash_table* V30(const hash_table &h1, const hash_table &h2, const hash_table &h3, const hash_table &h4, const hash_table &h5); //Our function
 
 int main() {
 	srand(time(NULL));
 
 	/*const int hash_size = MAXINT * 2;*/
-	int* arr = create_set();
-	vector <int>* hui = new vector <int>;
+	hash_table* tab_1 = create_set();
+	tab_1->print();
+	hash_table* tab_2 = create_set();
+	tab_2->print();
+	hash_table* tab_3 = create_set();
+	tab_3->print();
+	hash_table* tab_4 = create_set();
+	tab_4->print();
+	hash_table* tab_5 = create_set();
+	tab_5->print();
+	hash_table* res = V30(*tab_1, *tab_2, *tab_3, *tab_4, *tab_5);
+	res->print();
+	/*hash_table* tab_3 = dis(*tab_1, *tab_2);
+	tab_3->print();
+	hash_table* tab_4 = con(*tab_1, *tab_2);
+	tab_4->print();
+	hash_table* tab_5 = XOR(*tab_1, *tab_2);
+	tab_5->print();*/
+
+	/*int arr[SIZE];
 	for (auto i = 0; i < SIZE; i++) {
 		arr[i] = rand() % MAXINT;
 	}
@@ -32,7 +51,7 @@ int main() {
 		cout << hash_func(arr[i], SIZE);
 		cout.fill(' ');
 		cout << "]";
-	}
+	}*/
 	/*int hash[SIZE * 2];
 	for (auto i = 0; i < SIZE; i++) {
 		hash[(60 * arr[i] + 5) % SIZE * 2] = arr[i];
@@ -41,15 +60,27 @@ int main() {
 		cout << hash[i] << " ";
 	}
 */
-	delete[] arr;
+	/*delete[] arr;*/
 	cin.get();
 	return 0;
 }
 
-int* create_set(const int size, const int max_val) {
-	int* arr = new int[size];
+hash_table* create_set(const int size, const int max_val) {
+	hash_table* table = new hash_table(size);
+	int temp;
 	for (auto i = 0; i < size; i++) {
-		arr[i] = rand() % max_val;
+		do {
+			temp = rand() % max_val;
+		} while (table->find(temp));
+		table->add(temp);
 	}
-	return arr;
+	return table;
+}
+
+hash_table* V30(const hash_table &h1, const hash_table &h2, const hash_table &h3, const hash_table &h4, const hash_table &h5) {
+	hash_table* var1 = con(h2, h3);
+	hash_table* var2 = dis(h1, *var1);
+	hash_table* var3 = dis(*var2, h4);
+	hash_table* var4 = dis(*var3, h5);
+	return var4;
 }
