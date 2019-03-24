@@ -1,12 +1,5 @@
 #include "Hash.h"
 
-hash_table::hash_table(const int* arr, const int arr_size) :filled(0) {
-	set = new std::vector<hash_elem*>(arr_size, nullptr);
-	for (auto i = 0; i < arr_size; i++) {
-		/*if (*/add(arr[i])/*) filled++;*/;
-	}
-}
-
 hash_table::hash_table(const int size): filled(0) {
 	set = new std::vector<hash_elem*>(size, nullptr);
 }
@@ -44,7 +37,7 @@ int hash_func(const int x, const int size) {
 	return (a*x + b) % size;
 }
 
-void hash_table::add(int to_add) { //true, if hash is unic
+void hash_table::add(int to_add) {
 	if (filled >= set->size()) {
 		std::vector<hash_elem*> *old_set = set;
 		set = new std::vector<hash_elem*>(filled * 1.5, nullptr);
@@ -61,12 +54,10 @@ void hash_table::add(int to_add) { //true, if hash is unic
 	if (p == nullptr) {
 		set->at(hash_to_add) = new hash_elem(to_add);
 		filled++;
-		/*return true;*/
 	}
 	else {
 		for (; p->next != nullptr; p = p->next);
 		p->next = new hash_elem(to_add);
-		/*return false;*/
 	}
 }
 

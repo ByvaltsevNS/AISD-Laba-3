@@ -6,13 +6,12 @@ const int SIZE = 32;
 
 using namespace std;
 
-hash_table* create_set(const int size = SIZE, const int max_val = MAXINT);//The creation of many of the given power
+hash_table* create_set(const int size = SIZE, const int max_val = MAXINT); //The creation of many of the given power
 hash_table* V30(const hash_table &h1, const hash_table &h2, const hash_table &h3, const hash_table &h4, const hash_table &h5); //Our function
 
 int main() {
 	srand(time(NULL));
 
-	/*const int hash_size = MAXINT * 2;*/
 	hash_table* tab_1 = create_set();
 	tab_1->print();
 	hash_table* tab_2 = create_set();
@@ -25,42 +24,7 @@ int main() {
 	tab_5->print();
 	hash_table* res = V30(*tab_1, *tab_2, *tab_3, *tab_4, *tab_5);
 	res->print();
-	/*hash_table* tab_3 = dis(*tab_1, *tab_2);
-	tab_3->print();
-	hash_table* tab_4 = con(*tab_1, *tab_2);
-	tab_4->print();
-	hash_table* tab_5 = XOR(*tab_1, *tab_2);
-	tab_5->print();*/
-
-	/*int arr[SIZE];
-	for (auto i = 0; i < SIZE; i++) {
-		arr[i] = rand() % MAXINT;
-	}
-	cin.get();
-	for (auto i = 0; i < SIZE; i++) {
-		cout << "[";
-		cout.width(to_string(MAXINT).size());
-		cout << arr[i];
-		cout.fill(' ');
-		cout << "]";
-	}
-	cout << endl;
-	for (auto i = 0; i < SIZE; i++) {
-		cout << "[";
-		cout.width(to_string(MAXINT).size());
-		cout << hash_func(arr[i], SIZE);
-		cout.fill(' ');
-		cout << "]";
-	}*/
-	/*int hash[SIZE * 2];
-	for (auto i = 0; i < SIZE; i++) {
-		hash[(60 * arr[i] + 5) % SIZE * 2] = arr[i];
-	}
-	for (auto i = 0; i < SIZE*2; i++) {
-		cout << hash[i] << " ";
-	}
-*/
-	/*delete[] arr;*/
+	
 	cin.get();
 	return 0;
 }

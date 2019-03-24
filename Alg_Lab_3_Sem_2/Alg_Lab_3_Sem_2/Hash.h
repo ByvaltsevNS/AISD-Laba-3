@@ -19,7 +19,6 @@ private:
 	std::vector<hash_elem*> *set;
 	int filled;
 public:
-	hash_table(const int* arr, const int arr_size = SIZE);
 	hash_table(const int arr_size = SIZE);
 	hash_table(const hash_table& A);
 	~hash_table() { delete set; }
