@@ -1,5 +1,11 @@
 #include "Hash.h"
-
+///////////////////////////////
+hash_table::hash_table(const int* arr,int arr_size, int size) {
+	set = new std::vector<hash_elem*>(size, nullptr);
+	for (auto i = 0; i < arr_size; i++)
+		add(arr[i]);
+}
+///////////////////////////////
 hash_table::hash_table(const int size): filled(0) {
 	set = new std::vector<hash_elem*>(size, nullptr);
 }
@@ -40,7 +46,7 @@ int hash_func(const int x, const int size) {
 void hash_table::add(int to_add) {
 	if (filled >= set->size()) {
 		std::vector<hash_elem*> *old_set = set;
-		set = new std::vector<hash_elem*>(filled * 1.5, nullptr);
+		set = new std::vector<hash_elem*>(old_set->size(), nullptr);
 		filled = 0;
 		for (int i = 0; i < old_set->size(); i++) {
 			for (hash_elem* p = old_set->at(i); p != nullptr; p = p->next) {
@@ -79,7 +85,7 @@ void hash_table::remove(int val) {
 	if (find(val)) {
 		if (filled < set->size() / 2) {
 			std::vector<hash_elem*> *old_set = set;
-			set = new std::vector<hash_elem*>(filled * 0.5, nullptr);
+			set = new std::vector<hash_elem*>(old_set->size() * 0.5, nullptr);
 			filled = 0;
 			for (int i = 0; i < old_set->size(); i++) {
 				for (hash_elem* p = old_set->at(i); p != nullptr; p = p->next) {
@@ -92,7 +98,8 @@ void hash_table::remove(int val) {
 		hash_elem *p = set->at(hash_to_remove);
 		if (p->val == val) {
 			set->at(hash_to_remove) = p->next;
-			p->next = nullptr;
+			if (p->next == nullptr)
+				filled--;
 		}
 		else {
 			for (; p->next->val != val; p = p->next);

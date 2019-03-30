@@ -12,7 +12,20 @@ hash_table* V30(const hash_table &h1, const hash_table &h2, const hash_table &h3
 int main() {
 	srand(time(NULL));
 
-	hash_table* tab_1 = create_set();
+	/*const int size = 16;
+	int arr[size] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+	hash_table* tab = new hash_table(arr, size, 5);
+	tab->print();
+	tab->remove(0);
+	tab->print();*/
+
+	/*hash_elem* el_1 = new hash_elem(1);
+	hash_elem* el_2 = new hash_elem(2, el_1);
+	hash_elem* el_3 = new hash_elem(3, el_2);
+	delete el_3;
+	std::cout << el_1->val;*/
+
+	/*hash_table* tab_1 = create_set();
 	tab_1->print();
 	hash_table* tab_2 = create_set();
 	tab_2->print();
@@ -24,7 +37,7 @@ int main() {
 	tab_5->print();
 	hash_table* res = V30(*tab_1, *tab_2, *tab_3, *tab_4, *tab_5);
 	res->print();
-	
+	*/
 	cin.get();
 	return 0;
 }
@@ -32,7 +45,7 @@ int main() {
 hash_table* create_set(const int size, const int max_val) {
 	hash_table* table = new hash_table(size);
 	int temp;
-	for (auto i = 0; i < size; i++) {
+	for (auto i = 0; i < size+size; i++) {
 		do {
 			temp = rand() % max_val;
 		} while (table->find(temp));

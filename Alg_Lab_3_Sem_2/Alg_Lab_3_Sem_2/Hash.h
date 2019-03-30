@@ -12,6 +12,7 @@ struct hash_elem {
 	int val;
 	hash_elem* next;
 	hash_elem(int val, hash_elem* next = nullptr) : val(val), next(next) {}
+	//~hash_elem() { delete next; /* next = nullptr;*/ }
 };
 
 class hash_table {
@@ -19,7 +20,8 @@ private:
 	std::vector<hash_elem*> *set;
 	int filled;
 public:
-	hash_table(const int arr_size = SIZE);
+	hash_table(const int* arr, int arr_size, int size); ///////////////////////////////////////////////////
+	hash_table(const int size = SIZE);
 	hash_table(const hash_table& A);
 	~hash_table() { delete set; }
 	void print();
