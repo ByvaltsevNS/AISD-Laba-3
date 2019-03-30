@@ -25,7 +25,7 @@ int main() {
 	delete el_3;
 	std::cout << el_1->val;*/
 
-	/*hash_table* tab_1 = create_set();
+	hash_table* tab_1 = create_set();
 	tab_1->print();
 	hash_table* tab_2 = create_set();
 	tab_2->print();
@@ -37,7 +37,7 @@ int main() {
 	tab_5->print();
 	hash_table* res = V30(*tab_1, *tab_2, *tab_3, *tab_4, *tab_5);
 	res->print();
-	*/
+	
 	cin.get();
 	return 0;
 }
