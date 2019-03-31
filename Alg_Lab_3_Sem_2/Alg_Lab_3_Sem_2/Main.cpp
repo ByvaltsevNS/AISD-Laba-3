@@ -4,8 +4,6 @@
 const int MAXINT = 100;
 const int SIZE = 32;
 
-using namespace std;
-
 hash_table* create_set(const int size = SIZE, const int max_val = MAXINT); //The creation of many of the given power
 hash_table* V30(const hash_table &h1, const hash_table &h2, const hash_table &h3, const hash_table &h4, const hash_table &h5); //Our function
 
@@ -38,14 +36,14 @@ int main() {
 	hash_table* res = V30(*tab_1, *tab_2, *tab_3, *tab_4, *tab_5);
 	res->print();
 	
-	cin.get();
+	std::cin.get();
 	return 0;
 }
 
 hash_table* create_set(const int size, const int max_val) {
 	hash_table* table = new hash_table(size);
 	int temp;
-	for (auto i = 0; i < size+size; i++) {
+	for (auto i = 0; i < size; i++) {
 		do {
 			temp = rand() % max_val;
 		} while (table->find(temp));
