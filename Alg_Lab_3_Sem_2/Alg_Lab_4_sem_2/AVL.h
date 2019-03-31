@@ -7,7 +7,7 @@ struct node {
 	int height;
 	node* left;
 	node* right;
-	node(int key) : key(key), height(0), left(nullptr), right(nullptr) {}
+	node(int key) : key(key), height(1), left(nullptr), right(nullptr) {}
 	int b_factor();
 	void fix_height();
 };

@@ -17,7 +17,7 @@ void avl_tree::print(node* head, int level)
 		print(head->right, level + 1);
 		for (int i = 0; i < level; i++)
 			std::cout << "     ";
-		std::cout << head->key << "<" << std::endl;
+		std::cout << head->key /*<< " " << head->height*/ << "<" << std::endl;
 		print(head->left, level + 1);
 	}
 }
@@ -48,13 +48,13 @@ void node::fix_height()
 		if (right)
 			height = right->height + 1;
 		else
-			height = 0;
+			height = 1;
 	}
 	else if (!right) {
 		if (left)
 			height = left->height + 1;
 		else
-			height = 0;
+			height = 1;
 	}
 }
 
