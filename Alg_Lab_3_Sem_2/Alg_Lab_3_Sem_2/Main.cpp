@@ -56,6 +56,6 @@ hash_table* V30(const hash_table &h1, const hash_table &h2, const hash_table &h3
 	hash_table* var1 = con(h2, h3);
 	hash_table* var2 = dis(h1, *var1);
 	hash_table* var3 = dis(*var2, h4);
-	hash_table* var4 = dis(*var3, h5);
+	hash_table* var4 = XOR(*var3, h5);
 	return var4;
 }

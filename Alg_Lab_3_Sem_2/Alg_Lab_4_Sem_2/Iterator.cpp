@@ -1,53 +1,70 @@
-#include "Iterator.h"
+#include "iterator.h"
 
-//Dft_iterator::Dft_iterator(avl_tree* tree)
-//{
-//	if (tree->head == nullptr)
-//	{
-//		throw "Tree is empty";
-//	}
-//	else
-//	{
-//		current = tree->head; // проход к самому левому элементу дерева для начала обратного обхода в глубину
-//		while ((current->left != nullptr) || (current->right != nullptr))
-//		{
-//			if (current->left == nullptr)
-//			{
-//				current = current->right;
-//			}
-//			else
-//				current = current->left;
-//		}
-//	}
-//}
-//
-//bool Dft_iterator::has_next()
-//{
-//	return (current != nullptr);
-//}
-//
-//int Dft_iterator::next()
-//{
-//	int key = current->key;
-//	if (current->up) // если есть куда идти
-//	{
-//		if ((current->up->right != nullptr) && (current->up->right != current)) //если можно пройти на правую ветку, то проходим
-//		{
-//			current = current->up->right;
-//			while ((current->left != nullptr) || (current->right != nullptr)) // идём в самый нижний элемент ветки (по возможности левый)
-//			{
-//				if (current->left == nullptr)
-//				{
-//					current = current->right;
-//				}
-//				else
-//					current = current->left;
-//			}
-//		}
-//		else // если справа веток нет, поднимаемся вверх
-//			current = current->up;
-//	}
-//	else
-//		current = nullptr;
-//	return key; //возвращаем ключ элемента
-//}
+//Конструктор элемента очереди
+Bft_iterator::Queue::QueueNode::QueueNode(node *p) {
+	tree_node = p;
+	next = nullptr;
+}
+//Деструктор элемента очереди
+Bft_iterator::Queue::QueueNode::~QueueNode() {
+	tree_node = nullptr;
+	next = nullptr;
+}
+//Конструктор пустой очереди
+Bft_iterator::Queue::Queue() {
+	tail = head = nullptr;
+}
+//Деструктор очереди
+Bft_iterator::Queue::~Queue() {
+	while (tail) {
+		this->pop_front();
+	}
+}
+//Добавление элемента в конец очереди
+void Bft_iterator::Queue::push_back(node *p) {
+	if (head == nullptr)
+		head = tail = new QueueNode(p);
+	else {
+		tail->next = new QueueNode(p);
+		tail = tail->next;
+	}
+}
+//Удаление элемента с начала очереди
+node* Bft_iterator::Queue::pop_front() {
+	node* res = head->tree_node;
+	QueueNode* del = head;
+	head = head->next;
+	if (head == nullptr)
+		tail = nullptr;
+	delete del;
+	return res;
+}
+
+Bft_iterator::Bft_iterator(avl_tree* tree)
+{
+	current = tree->head;
+	tree_Queue->push_back(current);
+}
+
+bool Bft_iterator::has_next()
+{
+	return (current != nullptr);
+}
+
+int Bft_iterator::next()
+{
+	if (!has_next()) { //
+		throw ("The next element does not exist!");
+	}
+	int key = current->key; //Получение ключа текущего узла
+	if (current->left)
+		tree_Queue->push_back(current->left); //Добавление в очередь левого потомка текущего узла
+	if (current->right)
+		tree_Queue->push_back(current->right); //Добавление в очередь правого потомка текущего узла
+	if (tree_Queue->head->next)
+		current = tree_Queue->head->next->tree_node; //Переход к следующему элементу в очереди
+	else
+		current = nullptr;
+	tree_Queue->pop_front(); //Удаление элемента из очереди
+	return key;
+}

@@ -6,6 +6,12 @@
 //		this->insert(it.next());
 //}
 
+avl_tree::avl_tree(avl_tree* tree) {
+	Bft_iterator it(tree);
+	while (it.has_next())
+		insert(it.next());
+}
+
 void avl_tree::print() {
 	print(head, 0);
 }
@@ -167,4 +173,94 @@ node* avl_tree::remove(node* p, int key) // удаление ключа k из дерева p
 
 void avl_tree::remove(int key) {
 	head = remove(head, key);
+}
+
+//void rec_dis_order(node* head_1, avl_tree* tree_2, avl_tree* res) {
+//	if (!tree_2->find(head_1->key))
+//		res->insert(head_1->key);
+//	//////////////////////////
+//	if (head_1->left != nullptr)
+//		rec_dis_order(head_1->left, tree_2, res);
+//	if (head_1->right != nullptr) 
+//		rec_dis_order(head_1->right, tree_2, res);
+//}
+//
+//avl_tree* dis(avl_tree* tree_1, avl_tree* tree_2) {
+//	avl_tree* res = new avl_tree(tree_1);
+//	rec_dis_order(tree_1)
+//	return res;
+//}
+
+avl_tree* dis(avl_tree* t1, avl_tree* t2) {
+	avl_tree* res;
+	Bft_iterator* it;
+	if (t1->height < t2->height) {
+		res = new avl_tree(t2);
+		it = new Bft_iterator(t1);
+		while (it->has_next()) {
+			int key = it->next();
+			if (!res->find(key))
+				res->insert(key);
+		}
+	}
+	else {
+		res = new avl_tree(t1);
+		it = new Bft_iterator(t2);
+		while (it->has_next()) {
+			int key = it->next();
+			if (!res->find(key))
+				res->insert(key);
+		}
+	}
+	return res;
+}
+
+avl_tree* con(avl_tree* t1, avl_tree* t2) {
+	avl_tree* res = new avl_tree();
+	Bft_iterator* it;
+	if (t1->height < t2->height) {
+		it = new Bft_iterator(t1);
+		while (it->has_next()) {
+			int key = it->next();
+			if (t2->find(key))
+				res->insert(key);
+		}
+	}
+	else {
+		it = new Bft_iterator(t2);
+		while (it->has_next()) {
+			int key = it->next();
+			if (t1->find(key))
+				res->insert(key);
+		}
+	}
+	return res;
+}
+
+avl_tree* XOR(avl_tree* t1, avl_tree* t2) {
+	avl_tree* res;
+	Bft_iterator* it;
+	if (t1->height < t2->height) {
+		res = new avl_tree(t2);
+		it = new Bft_iterator(t1);
+		while (it->has_next()) {
+			int key = it->next();
+			if (!res->find(key))
+				res->insert(key);
+			else
+				res->remove(key);
+		}
+	}
+	else {
+		res = new avl_tree(t1);
+		it = new Bft_iterator(t2);
+		while (it->has_next()) {
+			int key = it->next();
+			if (!res->find(key))
+				res->insert(key);
+			else
+				res->remove(key);
+		}
+	}
+	return res;
 }
