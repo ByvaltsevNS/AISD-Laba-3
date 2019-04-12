@@ -12,6 +12,15 @@ avl_tree::avl_tree(avl_tree* tree) {
 		insert(it.next());
 }
 
+avl_tree::~avl_tree() {
+	Bft_iterator it(this);
+	while (it.has_next()) {
+		node* p = it.current;
+		it.next();
+		delete p;
+	}
+}
+
 void avl_tree::print() {
 	print(head, 0);
 }
@@ -23,7 +32,7 @@ void avl_tree::print(node* head, int level)
 		print(head->right, level + 1);
 		for (int i = 0; i < level; i++)
 			std::cout << "     ";
-		std::cout << head->key /*<< " " << head->height*/ << "<" << std::endl;
+		std::cout << head->key << " " << head->number << "<" << std::endl;
 		print(head->left, level + 1);
 	}
 }
@@ -102,28 +111,28 @@ node* balance(node* p) // балансировка узла p
 	return p; // балансировка не нужна
 }
 
-bool avl_tree::find(node* head, int key) {
+node* avl_tree::find(node* head, int key) {
 	if (head == nullptr)
-		return false;
+		return nullptr;
 	if (head->key == key)
-		return true;
-	if (find(head->left, key))
-		return true;
-	else if (find(head->right, key))
-		return true;
+		return head;
+	if (node* p = find(head->left, key))
+		return p;
+	else if (node* p = find(head->right, key))
+		return p;
 	else
-		return false;
+		return nullptr;
 }
 
-bool avl_tree::find(int key) // вставка ключа k в дерево с корнем p
+node* avl_tree::find(int key) // вставка ключа k в дерево с корнем p
 {
 	return find(head, key);
 }
 
 node* avl_tree::insert(node* p, int key) // вставка ключа k в дерево с корнем p
 {
-	if (!p)
-		return new node(key);
+	if (!p) 
+		return new node(key, size++);
 	if (key < p->key)
 		p->left = insert(p->left, key);
 	else
@@ -171,8 +180,17 @@ node* avl_tree::remove(node* p, int key) // удаление ключа k из дерева p
 	return balance(p);
 }
 
-void avl_tree::remove(int key) {
-	head = remove(head, key);
+void avl_tree::remove(int key) { 
+	if (node* p = find(key)) {
+		int num = p->number;
+		head = remove(head, key);
+		Bft_iterator it(this);
+		while (it.has_next()) {
+			if (it.current->number > num)
+				it.current->number--;
+			it.next();
+		}
+	}
 }
 
 //void rec_dis_order(node* head_1, avl_tree* tree_2, avl_tree* res) {
@@ -263,4 +281,28 @@ avl_tree* XOR(avl_tree* t1, avl_tree* t2) {
 		}
 	}
 	return res;
+}
+
+////////////////////////////////////////////////////
+
+node* avl_tree::find_num(int num){
+	Bft_iterator it(this);
+	while (it.has_next()) {
+		if (it.current->number == num)
+			return it.current;
+	}
+	return nullptr;
+
+}
+
+avl_tree* get_sorted_que(node& head, Queue* que) {
+	if (head) { //Пока не встретится пустой узел
+		get_sorted_que(head->left, tree_node_queue);  //Рекурсивная функция вывода левого поддерева
+		tree_node_queue->push_back(head); //Запись элемента в массив
+		get_sorted_que(head->right, tree_node_queue); //Рекурсивная функция вывода правого поддерева
+	}
+}
+
+avl_tree* merge(avl_tree& t1, avl_tree& t2) {
+
 }

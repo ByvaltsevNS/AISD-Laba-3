@@ -1,27 +1,27 @@
 #include "iterator.h"
 
 //Конструктор элемента очереди
-Bft_iterator::Queue::QueueNode::QueueNode(node *p) {
+Queue::QueueNode::QueueNode(node *p) {
 	tree_node = p;
 	next = nullptr;
 }
 //Деструктор элемента очереди
-Bft_iterator::Queue::QueueNode::~QueueNode() {
+Queue::QueueNode::~QueueNode() {
 	tree_node = nullptr;
 	next = nullptr;
 }
 //Конструктор пустой очереди
-Bft_iterator::Queue::Queue() {
+Queue::Queue() {
 	tail = head = nullptr;
 }
 //Деструктор очереди
-Bft_iterator::Queue::~Queue() {
+Queue::~Queue() {
 	while (tail) {
 		this->pop_front();
 	}
 }
 //Добавление элемента в конец очереди
-void Bft_iterator::Queue::push_back(node *p) {
+void Queue::push_back(node *p) {
 	if (head == nullptr)
 		head = tail = new QueueNode(p);
 	else {
@@ -30,7 +30,7 @@ void Bft_iterator::Queue::push_back(node *p) {
 	}
 }
 //Удаление элемента с начала очереди
-node* Bft_iterator::Queue::pop_front() {
+node* Queue::pop_front() {
 	node* res = head->tree_node;
 	QueueNode* del = head;
 	head = head->next;

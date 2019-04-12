@@ -11,7 +11,19 @@ avl_tree* create_my_tree();
 int main() {
 	srand(time(NULL));
 
-	avl_tree*  tree_1 = create_rand_tree();
+	//elem* a = new elem(3);
+	/*elem* b = new elem(9, new elem(3));
+	delete b;
+	std::cout << b->next->key;*/
+
+	avl_tree* tree = create_my_tree();
+	tree->print();
+	tree->remove(75);
+	printf("\n\n\n");
+	tree->print();
+	delete tree;
+
+	/*avl_tree*  tree_1 = create_rand_tree();
 	avl_tree*  tree_2 = create_rand_tree();
 	avl_tree*  tree_3 = create_rand_tree();
 	avl_tree*  tree_4 = create_rand_tree();
@@ -33,7 +45,7 @@ int main() {
 	tree_5->print();
 	std::cout << "........................................................................................" << std::endl;
 	std::cout << "Result:\n";
-	res->print();
+	res->print();*/
 	/*avl_tree* res = con(tree_1, tree_2);
 	avl_tree* res = XOR(tree_1, tree_2);
 	avl_tree* res = dis(tree_1, tree_2);*/
@@ -58,9 +70,9 @@ avl_tree* create_rand_tree(const int size, const int max) {
 	avl_tree* tree = new avl_tree();
 	int temp;
 	for (auto i = 0; i < size; i++) {
-		do {
+		/*do {*/
 			temp = rand() % max;
-		} while (tree->find(temp));
+		/*} while (tree->find(temp));*/
 		tree->insert(temp);
 	}
 	return tree;
