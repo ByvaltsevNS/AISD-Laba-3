@@ -1,45 +1,5 @@
 #include "iterator.h"
 
-//Конструктор элемента очереди
-Queue::QueueNode::QueueNode(node *p) {
-	tree_node = p;
-	next = nullptr;
-}
-//Деструктор элемента очереди
-Queue::QueueNode::~QueueNode() {
-	tree_node = nullptr;
-	next = nullptr;
-}
-//Конструктор пустой очереди
-Queue::Queue() {
-	tail = head = nullptr;
-}
-//Деструктор очереди
-Queue::~Queue() {
-	while (tail) {
-		this->pop_front();
-	}
-}
-//Добавление элемента в конец очереди
-void Queue::push_back(node *p) {
-	if (head == nullptr)
-		head = tail = new QueueNode(p);
-	else {
-		tail->next = new QueueNode(p);
-		tail = tail->next;
-	}
-}
-//Удаление элемента с начала очереди
-node* Queue::pop_front() {
-	node* res = head->tree_node;
-	QueueNode* del = head;
-	head = head->next;
-	if (head == nullptr)
-		tail = nullptr;
-	delete del;
-	return res;
-}
-
 Bft_iterator::Bft_iterator(avl_tree* tree)
 {
 	current = tree->head;
