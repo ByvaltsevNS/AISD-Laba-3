@@ -13,21 +13,21 @@ int main() {
 
 	avl_tree* tree_1 = create_rand_tree(10, 30);
 	avl_tree* tree_2 = create_rand_tree(5, 20);
-	avl_tree* tree_3 = merge(tree_1, tree_2);
-	avl_tree* tree_4 = concat(tree_1, tree_2);
-	avl_tree* tree_5 = mul(tree_2, 3);
 	std::cout << "A:\n";
 	tree_1->print();
 	std::cout << "........................................................................................" << std::endl;
 	std::cout << "B:\n";
 	tree_2->print();
 	std::cout << "........................................................................................" << std::endl;
+	avl_tree* tree_3 = merge(tree_1, tree_2);
 	std::cout << "C:\n";
 	tree_3->print();
 	std::cout << "........................................................................................" << std::endl;
+	avl_tree* tree_4 = concat(tree_1, tree_2);
 	std::cout << "D:\n";
 	tree_4->print();
 	std::cout << "........................................................................................" << std::endl;
+	avl_tree* tree_5 = mul(tree_2, 3);
 	std::cout << "E:\n";
 	tree_5->print();
 	std::cout << "........................................................................................" << std::endl;

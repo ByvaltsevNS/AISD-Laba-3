@@ -3,13 +3,14 @@
 #include "Iterator.h"
 #include "Queue.h"
 
-struct Queue;
+//struct Queue;
 
 struct node {
 	int key;
 	unsigned char height;
 	node* left;
 	node* right;
+
 	node(int key) : key(key), height(1),  left(nullptr), right(nullptr) {}
 	int b_factor();
 	void fix_height();
@@ -29,16 +30,19 @@ private:
 	int height; 
 	unsigned int size;
 	Queue* seque;
+
 	void print(node* head, int level);
 	node* find(node* head, int key);
 	node* insert(node* p, int key);
 	node* remove(node* p, int key); 
 public:
 	friend class Bft_iterator;
-	avl_tree(): head(0), height(0), size(0) {}
-	avl_tree(int key): head(new node(key)), height(0), size(1) {}
+
+	avl_tree();
+	avl_tree(int key);
 	avl_tree(avl_tree* tree);
 	~avl_tree();
+
 	unsigned int get_size() { return size; }
 	Queue* get_seque() { return seque; }
 	void print();
@@ -47,6 +51,7 @@ public:
 	void remove(int key);
 	/*node* find_num(int num);*/
 	void get_sorted_que(Queue* que);
+
 	friend avl_tree* dis(avl_tree* t1, avl_tree* t2);
 	friend avl_tree* con(avl_tree* t1, avl_tree* t2);
 	friend avl_tree* XOR(avl_tree* t1, avl_tree* t2);

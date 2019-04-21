@@ -6,11 +6,16 @@
 //		this->insert(it.next());
 //}
 
+
+avl_tree::avl_tree() : head(0), height(0), size(0) { seque = new Queue; }
+
+avl_tree::avl_tree(int key) : head(new node(key)), height(0), size(1) { seque = new Queue(head); }
+
 avl_tree::avl_tree(avl_tree* tree) {
+	seque = new Queue;
 	Queue::QueueNode* temp = tree->seque->head;
 	for (; temp; temp = temp->next) {
 		this->insert(temp->tree_node->key);
-		this->seque->push_back(temp->tree_node);
 	}
 }
 
@@ -318,11 +323,11 @@ avl_tree* merge(avl_tree* t1, avl_tree* t2) {
 	node* node_t2 = que2->pop_front();
 	while (node_t1 or node_t2) {
 		if (!node_t1) {
-			for (; !node_t2; node_t2 = que2->pop_front())
+			for (; node_t2; node_t2 = que2->pop_front())
 				res->insert(node_t2->key);
 		}
 		else if (!node_t2) {
-			for (; !node_t1; node_t1 = que1->pop_front())
+			for (; node_t1; node_t1 = que1->pop_front())
 				res->insert(node_t1->key);
 		}
 		else if (node_t1->key > node_t2->key) {
@@ -359,7 +364,6 @@ avl_tree* concat(avl_tree* t1, avl_tree* t2) {
 	avl_tree* res = new avl_tree(t1);
 	Queue::QueueNode* temp = t2->seque->head;
 	for (; temp; temp = temp->next) {
-		res->seque->push_back(temp->tree_node);
 		res->insert(temp->tree_node->key);
 	}
 	return res;

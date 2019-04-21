@@ -3,6 +3,7 @@
 Bft_iterator::Bft_iterator(avl_tree* tree)
 {
 	current = tree->head;
+	tree_Queue = new Queue(tree->head);
 	tree_Queue->push_back(current);
 }
 

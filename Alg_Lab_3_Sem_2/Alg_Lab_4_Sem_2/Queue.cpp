@@ -14,6 +14,10 @@ Queue::QueueNode::~QueueNode() {
 Queue::Queue() {
 	tail = head = nullptr;
 }
+//Конструктор очереди
+Queue::Queue(node* p) {
+	tail = head = new QueueNode(p);
+}
 //Деструктор очереди
 Queue::~Queue() {
 	while (tail) {
@@ -32,6 +36,8 @@ void Queue::push_back(node *p) {
 }
 //Удаление элемента с начала очереди
 node* Queue::pop_front() {
+	if (!head)
+		return nullptr;
 	node* res = head->tree_node;
 	QueueNode* del = head;
 	head = head->next;
