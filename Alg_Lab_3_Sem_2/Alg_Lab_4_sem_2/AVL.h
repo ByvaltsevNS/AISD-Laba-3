@@ -12,6 +12,7 @@ struct node {
 	node* right;
 
 	node(int key) : key(key), height(1),  left(nullptr), right(nullptr) {}
+	node(int key, unsigned char height) : key(key), height(height), left(nullptr), right(nullptr) {}
 	int b_factor();
 	void fix_height();
 };
@@ -27,8 +28,8 @@ struct node {
 class avl_tree {
 private:
 	node* head;
-	int height; 
-	unsigned int size;
+	/*int height; */
+	/*unsigned int size;*/
 	Queue* seque;
 
 	void print(node* head, int level);
@@ -43,8 +44,8 @@ public:
 	avl_tree(avl_tree* tree);
 	~avl_tree();
 
-	unsigned int get_size() { return size; }
-	Queue* get_seque() { return seque; }
+	/*unsigned int get_size() { return size; }*/
+	/*Queue* get_seque() { return seque; }*/
 	void print();
 	node* find(int key);
 	void insert(int key);
@@ -56,6 +57,7 @@ public:
 	friend avl_tree* con(avl_tree* t1, avl_tree* t2);
 	friend avl_tree* XOR(avl_tree* t1, avl_tree* t2);
 	friend avl_tree* concat(avl_tree* t1, avl_tree* t2);
+	friend avl_tree* mul(avl_tree* tree, int n);
 };
 
 node* rotate_right(node* p);
@@ -63,6 +65,7 @@ node* rotate_left(node* q);
 node* balance(node* p);
 node* find_min(node* p); // поиск узла с минимальным ключом в дереве p 
 node* remove_min(node* p); // удаление узла с минимальным ключом из дерева p
+
 void get_sorted_que(node* head, Queue* que);
 avl_tree* merge(avl_tree* t1, avl_tree* t2);
-avl_tree* mul(avl_tree* tree, int n);
+//avl_tree* mul(avl_tree* tree, int n);

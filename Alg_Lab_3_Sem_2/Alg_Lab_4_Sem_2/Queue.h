@@ -4,17 +4,16 @@
 struct node;
 class avl_tree;
 
-struct Queue{
+class Queue{
+public:
 	struct QueueNode {
 		node* tree_node;
 		QueueNode *next;
-		QueueNode *prev;
+		/*QueueNode *prev;*/
 
 		QueueNode(node *p);
 		~QueueNode();
 	};
-	QueueNode *head;
-	QueueNode *tail;
 
 	Queue();
 	Queue(node* p);
@@ -23,5 +22,9 @@ struct Queue{
 	void print();
 	void push_back(node *node);
 	node* pop_front();
-	node* remove(node* a);
+	void remove(node* a);
+	QueueNode* get_head() { return head; }
+private:
+	QueueNode *head;
+	QueueNode *tail;
 };

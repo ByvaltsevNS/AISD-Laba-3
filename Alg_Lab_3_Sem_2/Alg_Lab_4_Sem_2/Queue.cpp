@@ -3,12 +3,12 @@
 //Конструктор элемента очереди
 Queue::QueueNode::QueueNode(node *p) {
 	tree_node = p;
-	next = prev = nullptr;
+	next/* = prev*/ = nullptr;
 }
 //Деструктор элемента очереди
 Queue::QueueNode::~QueueNode() {
 	tree_node = nullptr;
-	next = prev = nullptr;
+	next/* = prev*/ = nullptr;
 }
 //Конструктор пустой очереди
 Queue::Queue() {
@@ -30,7 +30,7 @@ void Queue::push_back(node *p) {
 		head = tail = new QueueNode(p);
 	else {
 		tail->next = new QueueNode(p);
-		tail->next->prev = tail;
+		/*tail->next->prev = tail;*/
 		tail = tail->next;
 	}
 }
@@ -43,23 +43,33 @@ node* Queue::pop_front() {
 	head = head->next;
 	if (head == nullptr)
 		tail = nullptr;
-	else
-		head->prev = nullptr;
+	/*else
+		head->prev = nullptr;*/
 
 	delete del;
 	return res;
 }
-
-node* Queue::remove(node* a) {
-	QueueNode* p = head;
+//Удаление элемента с заданного места в очереди
+void Queue::remove(node* a) {
+	/*QueueNode* p = head;
 	for (; p && p->tree_node != a; p = p->next);
 	if (!p)
 		return nullptr;
 
-	QueueNode* del = p;
-	p->next = del->next;
-	del->next->prev = p;
-	return del->tree_node;
+	if (p->prev)
+		p->prev->next = p->next;
+	if (p->next)
+		p->next->prev = p->prev;
+
+	return p->tree_node;*/
+	QueueNode* p = head;
+	for (; p->next && p->next->tree_node != a; p = p->next);
+	if (p->next) {
+		QueueNode* del = p->next;
+		p->next = del->next;
+		delete del;
+		p = nullptr;
+	}
 }
 //Вывод очереди в консоль
 void Queue::print() {

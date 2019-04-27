@@ -22,8 +22,8 @@ int Bft_iterator::next()
 		tree_Queue->push_back(current->left); //Добавление в очередь левого потомка текущего узла
 	if (current->right)
 		tree_Queue->push_back(current->right); //Добавление в очередь правого потомка текущего узла
-	if (tree_Queue->head->next)
-		current = tree_Queue->head->next->tree_node; //Переход к следующему элементу в очереди
+	if (tree_Queue->get_head()->next)
+		current = tree_Queue->get_head()->next->tree_node; //Переход к следующему элементу в очереди
 	else
 		current = nullptr;
 	tree_Queue->pop_front(); //Удаление элемента из очереди

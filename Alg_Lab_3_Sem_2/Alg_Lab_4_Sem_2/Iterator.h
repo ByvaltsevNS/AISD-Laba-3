@@ -4,7 +4,8 @@
 
 struct node;
 class avl_tree;
-struct Queue;
+//struct Queue;
+class Queue;
 
 class Bft_iterator {
 public:
