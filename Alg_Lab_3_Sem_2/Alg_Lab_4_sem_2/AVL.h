@@ -1,9 +1,10 @@
 #pragma once
 #include <iostream>
-#include "Iterator.h"
+#include <exception>
+//#include "Iterator.h"
 #include "Queue.h"
 
-//struct Queue;
+struct Queue;
 
 struct node {
 	int key;
@@ -12,7 +13,7 @@ struct node {
 	node* right;
 
 	node(int key) : key(key), height(1),  left(nullptr), right(nullptr) {}
-	node(int key, unsigned char height) : key(key), height(height), left(nullptr), right(nullptr) {}
+	/*node(int key, unsigned char height) : key(key), height(height), left(nullptr), right(nullptr) {}*/
 	int b_factor();
 	void fix_height();
 };
@@ -56,6 +57,7 @@ public:
 	friend avl_tree* dis(avl_tree* t1, avl_tree* t2);
 	friend avl_tree* con(avl_tree* t1, avl_tree* t2);
 	friend avl_tree* XOR(avl_tree* t1, avl_tree* t2);
+	friend avl_tree* merge(avl_tree* t1, avl_tree* t2);
 	friend avl_tree* concat(avl_tree* t1, avl_tree* t2);
 	friend avl_tree* mul(avl_tree* tree, int n);
 };
@@ -67,5 +69,4 @@ node* find_min(node* p); // поиск узла с минимальным ключом в дереве p
 node* remove_min(node* p); // удаление узла с минимальным ключом из дерева p
 
 void get_sorted_que(node* head, Queue* que);
-avl_tree* merge(avl_tree* t1, avl_tree* t2);
 //avl_tree* mul(avl_tree* tree, int n);

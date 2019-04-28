@@ -79,3 +79,8 @@ void Queue::print() {
 	}
 	std::cout << std::endl;
 }
+
+//void Queue::concat(Queue* que) {
+//	for (QueueNode* temp = que->get_head(); temp; temp = temp->next)
+//		this->push_back(new node(temp->tree_node->key));
+//}

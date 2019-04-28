@@ -24,6 +24,7 @@ public:
 	node* pop_front();
 	void remove(node* a);
 	QueueNode* get_head() { return head; }
+	/*void concat(Queue* que);*/
 private:
 	QueueNode *head;
 	QueueNode *tail;
