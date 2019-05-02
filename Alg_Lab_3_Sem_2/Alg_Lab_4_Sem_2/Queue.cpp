@@ -30,7 +30,6 @@ void Queue::push_back(node *p) {
 		head = tail = new QueueNode(p);
 	else {
 		tail->next = new QueueNode(p);
-		/*tail->next->prev = tail;*/
 		tail = tail->next;
 	}
 }
@@ -43,25 +42,11 @@ node* Queue::pop_front() {
 	head = head->next;
 	if (head == nullptr)
 		tail = nullptr;
-	/*else
-		head->prev = nullptr;*/
-
 	delete del;
 	return res;
 }
 //Удаление элемента с заданного места в очереди
 void Queue::remove(node* a) {
-	/*QueueNode* p = head;
-	for (; p && p->tree_node != a; p = p->next);
-	if (!p)
-		return nullptr;
-
-	if (p->prev)
-		p->prev->next = p->next;
-	if (p->next)
-		p->next->prev = p->prev;
-
-	return p->tree_node;*/
 	QueueNode* p = head;
 	for (; p->next && p->next->tree_node != a; p = p->next);
 	if (p->next) {
@@ -79,8 +64,3 @@ void Queue::print() {
 	}
 	std::cout << std::endl;
 }
-
-//void Queue::concat(Queue* que) {
-//	for (QueueNode* temp = que->get_head(); temp; temp = temp->next)
-//		this->push_back(new node(temp->tree_node->key));
-//}

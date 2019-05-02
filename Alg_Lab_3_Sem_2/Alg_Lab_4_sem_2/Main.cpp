@@ -8,22 +8,9 @@
 	avl_tree* V30(avl_tree* h1, avl_tree* h2, avl_tree* h3, avl_tree* h4, avl_tree* h5);
 	avl_tree* create_my_tree();
 
-	avl_tree* func(avl_tree& tree_1, avl_tree& tree_2) {
-		return new avl_tree(5);
-	}
-
 	int main() {
 		srand(time(NULL));
-
-		//avl_tree* tree_1 = create_rand_tree(10, 30);
-		//std::cout << "A:\n";
-		//tree_1->print();
-		//std::cout << "........................................................................................" << std::endl;
-		//avl_tree* tree_2 = new avl_tree(tree_1);
-		//std::cout << "B:\n";
-		//tree_2->print();
-		//std::cout << "........................................................................................" << std::endl;
-
+	
 		avl_tree* tree_1 = create_rand_tree(10, 30);
 		avl_tree* tree_2 = create_rand_tree(5, 20);
 		std::cout << "A:\n";
@@ -49,9 +36,6 @@
 		catch (std::exception& e) {
 			std::cout << e.what() << std::endl;
 		}
-
-		/*avl_tree* tree = nullptr;
-		tree->print();*/
 
 		/*avl_tree* tree_1 = create_rand_tree(5, 30);
 		avl_tree* tree_2 = create_rand_tree(5, 30);
@@ -90,9 +74,9 @@
 		avl_tree* tree = new avl_tree();
 		int temp;
 		for (auto i = 0; i < size; i++) {
-			do {
+			/*do {*/
 				temp = rand() % max;
-			} while (tree->find(temp));
+			/*} while (tree->find(temp));*/
 			tree->insert(temp);
 		}
 		return tree;
@@ -108,15 +92,6 @@
 
 	avl_tree* create_my_tree() {
 		avl_tree* tree = new avl_tree();
-		/*tree->insert(5);
-		tree->insert(5);
-		tree->insert(1);
-		tree->insert(6);
-		tree->insert(5);
-		tree->insert(5);
-		tree->insert(2);
-		tree->insert(1);
-		tree->insert(5);*/
 		tree->insert(75);
 		tree->insert(66);
 		tree->insert(98);

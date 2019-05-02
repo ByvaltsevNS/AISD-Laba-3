@@ -1,15 +1,8 @@
 #include "AVL.h"
 
-//avl_tree::avl_tree(avl_tree &tree) {
-//	Dft_iterator it(&tree);
-//	while (it.has_next())
-//		this->insert(it.next());
-//}
+avl_tree::avl_tree() : head(0) { seque = new Queue; }
 
-
-avl_tree::avl_tree() : head(0)/*, height(0)*//*, size(0)*/ { seque = new Queue; }
-
-avl_tree::avl_tree(int key) : head(new node(key))/*, height(0)*//*, size(1) */ { seque = new Queue(head); }
+avl_tree::avl_tree(int key) : head(new node(key)) { seque = new Queue(head); }
 
 avl_tree::avl_tree(avl_tree* tree) {
 	if (!tree) {
@@ -22,14 +15,6 @@ avl_tree::avl_tree(avl_tree* tree) {
 	}
 }
 
-//node* copy(node* head) {
-//	if (!head)
-//		return nullptr;
-//	node* new_head = new node(head->key, head->height);
-//	new_head->left = copy(head->left);
-//	new_head->right = copy(head->right);
-//}
-
 avl_tree::~avl_tree() {
 	while (seque->get_head())
 		delete seque->pop_front();
@@ -40,7 +25,6 @@ void avl_tree::print() {
 	print(head, 0);
 	std::cout << "....................................." << std::endl;
 	seque->print();
-	/*std::cout << "Height: " << head->height << std::endl;*/
 }
 
 void avl_tree::print(node* head, int level)
@@ -50,7 +34,7 @@ void avl_tree::print(node* head, int level)
 		print(head->right, level + 1);
 		for (int i = 0; i < level; i++)
 			std::cout << "     ";
-		std::cout << head->key << /*" " << head->height <<*/ "<" << std::endl;
+		std::cout << head->key << "<" << std::endl;
 		print(head->left, level + 1);
 	}
 }
@@ -188,7 +172,7 @@ node* avl_tree::remove(node* p, int key) // удаление ключа k из дерева p
 		p->left = remove(p->left, key);
 	else if (key > p->key)
 		p->right = remove(p->right, key);
-	else //  k == p->key 
+	else 
 	{
 		node* q = p->left;
 		node* r = p->right;
@@ -209,40 +193,17 @@ void avl_tree::remove(int key) {
 		head = remove(head, key);
 }
 
-//void rec_dis_order(node* head_1, avl_tree* tree_2, avl_tree* res) {
-//	if (!tree_2->find(head_1->key))
-//		res->insert(head_1->key);
-//	//////////////////////////
-//	if (head_1->left != nullptr)
-//		rec_dis_order(head_1->left, tree_2, res);
-//	if (head_1->right != nullptr) 
-//		rec_dis_order(head_1->right, tree_2, res);
-//}
-//
-//avl_tree* dis(avl_tree* tree_1, avl_tree* tree_2) {
-//	avl_tree* res = new avl_tree(tree_1);
-//	rec_dis_order(tree_1)
-//	return res;
-//}
-
 avl_tree* dis(avl_tree* t1, avl_tree* t2) {
 	if (!t1 || !t2) {
 		throw std::exception("Error in dis: one of the arguments = nullptr");
 	}
 	avl_tree* res = nullptr;
-	/*Bft_iterator* it;*/
 	if (!t1->head || t2->head && t1->head->height < t2->head->height) {
 		res = new avl_tree(t2);
-		/*it = new Bft_iterator(t1);*/
 		for (Queue::QueueNode* temp = t1->seque->get_head(); temp; temp = temp->next) {
 			if (!res->find(temp->tree_node->key))
 				res->insert(temp->tree_node->key);
 		}
-		/*while (it->has_next()) {
-			int key = it->next();
-			if (!res->find(key))
-				res->insert(key);
-		}*/
 	}
 	else {
 		res = new avl_tree(t1);
@@ -250,12 +211,6 @@ avl_tree* dis(avl_tree* t1, avl_tree* t2) {
 			if (!res->find(temp->tree_node->key))
 				res->insert(temp->tree_node->key);
 		}
-		/*it = new Bft_iterator(t2);
-		while (it->has_next()) {
-			int key = it->next();
-			if (!res->find(key))
-				res->insert(key);
-		}*/
 	}
 	return res;
 }
@@ -265,30 +220,17 @@ avl_tree* con(avl_tree* t1, avl_tree* t2) {
 		throw std::exception("Error in con: one of the arguments = nullptr");
 	}
 	avl_tree* res = new avl_tree();
-	/*Bft_iterator* it;*/
 	if (!t1->head || t2->head && t1->head->height < t2->head->height) {
-		/*it = new Bft_iterator(t1);*/
 		for (Queue::QueueNode* temp = t1->seque->get_head(); temp; temp = temp->next) {
 			if (t2->find(temp->tree_node->key))
 				res->insert(temp->tree_node->key);
 		}
-		/*while (it->has_next()) {
-			int key = it->next();
-			if (t2->find(key))
-				res->insert(key);
-		}*/
 	}
 	else {
 		for (Queue::QueueNode* temp = t2->seque->get_head(); temp; temp = temp->next) {
 			if (t1->find(temp->tree_node->key))
 				res->insert(temp->tree_node->key);
 		}
-		/*it = new Bft_iterator(t2);
-		while (it->has_next()) {
-			int key = it->next();
-			if (t1->find(key))
-				res->insert(key);
-		}*/
 	}
 	return res;
 }
@@ -298,23 +240,14 @@ avl_tree* XOR(avl_tree* t1, avl_tree* t2) {
 		throw std::exception("Error in XOR: one of the arguments = nullptr");
 	}
 	avl_tree* res;
-	/*Bft_iterator* it;*/
 	if (!t1->head || t2->head && t1->head->height < t2->head->height) {
 		res = new avl_tree(t2);
-		/*it = new Bft_iterator(t1);*/
 		for (Queue::QueueNode* temp = t1->seque->get_head(); temp; temp = temp->next) {
 			if (!res->find(temp->tree_node->key))
 				res->insert(temp->tree_node->key);
 			else
 				res->remove(temp->tree_node->key);
 		}
-		/*while (it->has_next()) {
-			int key = it->next();
-			if (!res->find(key))
-				res->insert(key);
-			else
-				res->remove(key);
-		}*/
 	}
 	else {
 		res = new avl_tree(t1);
@@ -324,29 +257,9 @@ avl_tree* XOR(avl_tree* t1, avl_tree* t2) {
 			else
 				res->remove(temp->tree_node->key);
 		}
-		/*it = new Bft_iterator(t2);
-		while (it->has_next()) {
-			int key = it->next();
-			if (!res->find(key))
-				res->insert(key);
-			else
-				res->remove(key);
-		}*/
 	}
 	return res;
 }
-
-////////////////////////////////////////////////////
-//
-//node* avl_tree::find_num(int num){
-//	Bft_iterator it(this);
-//	while (it.has_next()) {
-//		if (it.current->number == num)
-//			return it.current;
-//	}
-//	return nullptr;
-//
-//}
 
 void get_sorted_que(node* head, Queue* que) {
 	if (head) { //Пока не встретится пустой узел
@@ -374,23 +287,6 @@ avl_tree* merge(avl_tree* t1, avl_tree* t2) {
 	}
 }
 
-//concat without seque
-/*avl_tree* concat(avl_tree* t1, avl_tree* t2) {
-	if (t1->get_size() > t2->get_size()) {
-		avl_tree* res = new avl_tree(t1);
-		for (int i = 0; i < t2->get_size(); i++)
-			res->insert(t2->find_num(i)->key);
-		return res;
-	}
-	else {
-		avl_tree* res = new avl_tree(t2);
-		for (int i = 0; i < t1->get_size(); i++)
-			res->insert(t1->find_num(i)->key);
-		return res;
-	}
-}*/
-
-//concat with seque
 avl_tree* concat(avl_tree* t1, avl_tree* t2) {
 	if (!t1 || !t2) {
 		throw std::exception("Error in concat: one of the arguments = nullptr");
@@ -413,21 +309,5 @@ avl_tree* mul(avl_tree* tree, int n) {
 			res->insert(p->tree_node->key);
 	}
 	return res;
-	/*avl_tree* res = nullptr;
-	if (n == 1) {
-		res = new avl_tree(tree);
-	}
-	else {
-		res = new avl_tree();
-		Queue* var = new Queue;
-		for (auto i = 0; i < n; i++) 
-			var->concat(tree->seque);
-		for (Queue::QueueNode* p = var->get_head(); p; p = p->next)
-			res->insert(p->tree_node->key);
-		while (var->get_head())
-			delete var->pop_front();
-		delete var;
-	}
-	return res;*/
 }
 
